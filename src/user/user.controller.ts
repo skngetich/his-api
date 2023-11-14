@@ -8,11 +8,12 @@ export class userController {
 
   @Post()
   async createuser(@Body() createuserDto: CreateuserDto) {
+    console.log(createuserDto);
     const user = await this.userService.userCreate(createuserDto);
     return { user };
   }
   @Get()
-  async getcreateuser() {
-    return 'hello user';
-  }
+  async getalluser() {
+    return this.userService.getAllUsers();
+} 
 }

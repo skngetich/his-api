@@ -1,4 +1,3 @@
-// user.dto.ts
 export class CreateuserDto {
   name: string;
   title: string;
