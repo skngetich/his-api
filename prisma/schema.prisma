@@ -1,0 +1,55 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Define User table for personal information
+model User {
+  userId                              Int         @id @default(autoincrement())
+  name                                String
+  title                               String
+  dateOfBirth                         DateTime
+  idNo                                String      @unique
+  gender                              String
+  nationality                         String
+  ethnicity                           String
+  homeCounty                          String
+  hasDisability                       Boolean
+  disabilityDetails                   String?
+  nationalRegistrationForDisabilities String?
+  contact                             Contact[]
+  disability                          Disability[]
+}
+
+// Define Contact table for contact information
+model Contact {
+  contactId           Int    @id @default(autoincrement())
+  postalAddress       String
+  postalCode          String
+  town                String
+  telephone           String
+  mobile              String
+  email               String
+  altContactName      String
+  altContactTelephone String
+  userId              Int?
+  user                User?  @relation(fields: [userId], references: [userId])
+}
+
+// Define Disability table for disability information
+model Disability {
+  disabilityId                        Int     @id @default(autoincrement())
+  hasDisability                       Boolean
+  disabilityDetails                   String?
+  nationalRegistrationForDisabilities String?
+  userId                              Int?
+  user                                User?   @relation(fields: [userId], references: [userId])
+}
